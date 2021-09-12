@@ -26,8 +26,8 @@ RUN rbenv local 2.6.8
 ENV PYTHONUNBUFFERED=1
 WORKDIR /indigo
 COPY requirements.txt /indigo/
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip3 install --upgrade pip
+RUN pip3 install -r requirements.txt
 COPY Gemfile /indigo/
 COPY Gemfile.lock /indigo/
 RUN gem install bundler
