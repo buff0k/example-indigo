@@ -33,3 +33,6 @@ COPY Gemfile.lock /indigo/
 RUN gem install bundler
 RUN bundle install
 COPY . /indigo/
+RUN python3 manage.py migrate
+RUN python3 manage.py update_countries_plus
+RUN python3 manage.py loaddata languages_data.json.gz
