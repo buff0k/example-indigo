@@ -9,8 +9,8 @@ RUN curl -sL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-insta
 RUN echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
 RUN echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 RUN source ~/.bashrc
-RUN rbenv install 2.7.0
-RUN rbenv global 2.7.0
+RUN rbenv install 2.6.8
+RUN rbenv global 2.6.8
 ENV PYTHONUNBUFFERED=1
 WORKDIR /code
 COPY requirements.txt /code/
