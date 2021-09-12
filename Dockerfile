@@ -16,6 +16,7 @@ RUN chmod +x /etc/profile.d/rbenv.sh
 # install ruby-build
 RUN mkdir /usr/local/rbenv/plugins
 RUN git clone https://github.com/sstephenson/ruby-build.git /usr/local/rbenv/plugins/ruby-build
+RUN /usr/local/rbenv/plugins/ruby-build/install.sh
 ENV PATH /usr/local/rbenv/shims:/usr/local/rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 # Set to Ruby 2.6.8
 RUN rbenv install 2.6.8
@@ -25,6 +26,7 @@ RUN rbenv local 2.6.8
 ENV PYTHONUNBUFFERED=1
 WORKDIR /indigo
 COPY requirements.txt /indigo/
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 COPY Gemfile /indigo/
 COPY Gemfile.lock /indigo/
