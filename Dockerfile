@@ -1,11 +1,5 @@
 # syntax=docker/dockerfile:1
 FROM debian:bullseye-slim
-# update and install dependencies
-RUN apt-get -y update
-RUN apt-get -y install git fontconfig libjpeg62-turbo xfonts-75dpi xfonts-base poppler-utils postgresql-client build-essential libpq-dev
-# install wkhtmltopdf
-ADD https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb /tmp/wkhtmltox_0.12.6-1.buster_amd64.deb
-RUN dpkg -i /tmp/wkhtmltox_0.12.6-1.buster_amd64.deb
 # install Ruby 3.6.8 from https://github.com/docker-library/ruby/blob/49168590766ac3eb0ad286154b2e01760b79f4b2/2.6/slim-buster/Dockerfile
 RUN set -eux; \
 	apt-get update; \
@@ -285,10 +279,19 @@ RUN set -ex; \
 		\) -exec rm -rf '{}' +; \
 	rm -f get-pip.py
 CMD ["python3"]
+# update and install wkhtmltopdf and django dependencies
+RUN apt-get -y update
+RUN apt-get -y install git fontconfig libjpeg62-turbo xfonts-75dpi xfonts-base poppler-utils postgresql-client build-essential libpq-dev
+# install wkhtmltopdf
+ADD https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb /tmp/wkhtmltox_0.12.6-1.buster_amd64.deb
+RUN dpkg -i /tmp/wkhtmltox_0.12.6-1.buster_amd64.deb
 # Set Python Buffered
 ENV PYTHONUNBUFFERED=1
+# Set working directory
 WORKDIR /code
+# Copy indigo-example contents to working directory
 COPY . /code/
+# Update Gem Installer and install slaw parser
 RUN gem install bundler
 RUN bundle update --bundler
 RUN bundle install
@@ -296,7 +299,9 @@ RUN bundle install
 #RUN env/bin/activate &&
 #RUN pip3 install --upgrade pip
 #RUN pip3 install wheel
+# Install django Pytohn dependencies
 RUN pip3 install -r requirements.txt
+# Configure Indigo for first run
 RUN python3 manage.py migrate
 RUN python3 manage.py update_countries_plus
 RUN python3 manage.py loaddata languages_data.json.gz
