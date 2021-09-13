@@ -4,7 +4,7 @@ FROM debian:bullseye-slim
 RUN apt-get -y update
 RUN apt-get -y install git fontconfig libjpeg62-turbo xfonts-75dpi xfonts-base poppler-utils postgresql-client built-essential libpg-dev
 # install wkhtmltopdf
-ADD https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmlt>
+ADD https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb
 RUN dpkg -i /tmp/wkhtmltox_0.12.6-1.buster_amd64.deb
 # install Ruby 3.6.8 from https://github.com/docker-library/ruby/blob/49168590766ac3eb0ad286154b2e01760b79f4b2/2.6/slim-buster/Dockerfile
 RUN set -eux; \
