@@ -1,7 +1,7 @@
 version: "3.3"
    
 services:
-  indigo_db:
+  db:
     image: postgres
     volumes:
       - ./data/db:/var/lib/postgresql/data
@@ -9,7 +9,7 @@ services:
       - POSTGRES_DB=indigo
       - POSTGRES_USER=indigo
       - POSTGRES_PASSWORD=indigo
-  indigo_web:
+  web:
     build: .
     command: python3 manage.py runserver 0.0.0.0:8100
     volumes:
@@ -17,4 +17,4 @@ services:
     ports:
       - "8100:8100"
     depends_on:
-      - indigo_db
+      - db
