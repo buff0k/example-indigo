@@ -2,7 +2,7 @@
 FROM debian:bullseye-slim
 # update and install dependencies
 RUN apt-get -y update
-RUN apt-get -y install git fontconfig libjpeg62-turbo xfonts-75dpi xfonts-base poppler-utils postgresql-client built-essential libpg-dev
+RUN apt-get -y install git fontconfig libjpeg62-turbo xfonts-75dpi xfonts-base poppler-utils postgresql-client build-essential libpg-dev
 # install wkhtmltopdf
 ADD https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb wkhtmltox_0.12.6-1.buster_amd64.deb
 RUN dpkg -i /tmp/wkhtmltox_0.12.6-1.buster_amd64.deb
