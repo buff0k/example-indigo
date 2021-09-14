@@ -4,12 +4,15 @@ Example set of configuration files for running [Indigo](https://github.com/OpenU
 
 ## Dokku Deployment (working):
 
+```bash
 dokku apps:create indigo
 
 dokku nginx:set indigo clietn-max-body-size 100M;
+```
 
 {Change below settings for your environment}
 
+```bash
 dokku config:set indigo \
     DISABLE_COLLECTSTATIC=1 \
     DJANGO_DEBUG=false \
@@ -47,6 +50,7 @@ dokku run indigo python manage.py update_countries_plus
 dokku run indigo python manage.py loaddata languages_data.json.gz
 
 dokku run indigo python manage.py createsuperuser
+```
 
 ## Docker Deployment (testing):
 
