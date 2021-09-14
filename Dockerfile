@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM debian:bullseye-slim
+FROM debian:bullseye
 # install Ruby 3.6.8 from https://github.com/docker-library/ruby/blob/49168590766ac3eb0ad286154b2e01760b79f4b2/2.6/slim-buster/Dockerfile
 RUN set -eux; \
 	apt-get update; \
