@@ -2,7 +2,7 @@
 
 Example set of configuration files for running [Indigo](https://github.com/OpenUpSA/indigo) on Heroku or with [dokku](https://github.com/dokku/dokku) or additionally deployment to [Docker](https://docker.io) via Dockerfile:
 
-Dokku Deployment (working):
+## Dokku Deployment (working):
 
 dokku apps:create indigo
 
@@ -48,7 +48,7 @@ dokku run indigo python manage.py loaddata languages_data.json.gz
 
 dokku run indigo python manage.py createsuperuser
 
-Docker Deployment (testing):
+## Docker Deployment (testing):
 
 NB!! mv example-env .env and edit the variables prior to deployment.
 
