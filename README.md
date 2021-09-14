@@ -4,13 +4,20 @@ Example set of configuration files for running [Indigo](https://github.com/OpenU
 
 ## Dokku Deployment (working):
 
+NB!!! This assumes that you have already installed and deployed Dokku, refer to their documentation for instructions...
+
+Create the Dokku app (Named indigo)
+
 ```bash
 dokku apps:create indigo
+```
+Allow upload of files larger than 1Megabyte
 
+```bash
 dokku nginx:set indigo clietn-max-body-size 100M;
 ```
 
-{Change below settings for your environment}
+Set ENV variables: (Change below settings for your environment):
 
 ```bash
 dokku config:set indigo \
@@ -28,27 +35,65 @@ dokku config:set indigo \
     GOOGLE_ANALYTICS_ID=Your analytics ID \
     SUPPORT_EMAIL=name@domain.com \
     NOTIFICATION_EMAILS_BACKGROUND=true
+```
 
+Install the Dokku Postgres Plugin:
+
+```bash
+sudo dokku plugin:install https://github.com/dokku/dokku-postgres.git
+```
+
+Create a Postgres Database and link it to the indigo app:
+
+```bash
 dokku postgres:create indigodb
+```
 
+```bash
 dokku postgres:link indigodb indigo
+```
 
+Clone and enter from GIT:
+
+```bash
 git clone https://github.com/buff0k/example-indigo
+```
 
+```bash
 cd example-indigo
+```
 
+Add the dokku git host for the app:
+
+```bash
 git remote add dokku dokku@host-name:indigo
+```
 
+Disable CHECKS for the initial deployment (Remember to re-enable after the initial deployment for updates):
+
+```bash
 dokku checks:disable indigo
+```
 
+Deploy Indigo to Dokku:
+
+```bash
 git push dokku
+```
 
+```bash
 dokku checks:enable indigo
+```
 
+```bash
 dokku run indigo python manage.py update_countries_plus
+```
 
+```bash
 dokku run indigo python manage.py loaddata languages_data.json.gz
+```
 
+```bash
 dokku run indigo python manage.py createsuperuser
 ```
 
