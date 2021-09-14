@@ -11,10 +11,10 @@ services:
       - POSTGRES_PASSWORD=indigo
   web:
     build: .
-    command: python3 manage.py runserver 0.0.0.0:8100
+    command: python3 manage.py runserver 0.0.0.0:5500
     volumes:
       - .:/code
     ports:
-      - "8100:8100"
+      - "5500:5500"
     depends_on:
       - db
